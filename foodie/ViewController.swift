@@ -1,22 +1,56 @@
 import UIKit
+import CoreLocation
 
 
 protocol VCDelegate {
-    
-    //func passData(theData1:String,theData2:String,theData3:String,theData4:String)
-    func passData(string1:String,string2:String)
-
+    func passData(string1:String,string2:String,string3:String,string4:String)
 }
 
+var viewController = ViewController()
 
-    class ViewController: UIViewController {
-
-    var delegate : VCDelegate?
+class ViewController: UIViewController, CLLocationManagerDelegate{
     
-    @IBAction func getRestaurantInformation(_ sender: Any) {
-        
+    
+    @IBOutlet weak var button: UIButton!
+    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
 
-        rData.getLocation {
+    @IBOutlet weak var container: UIView!
+    
+    var delegate : VCDelegate?
+    let locationManager = CLLocationManager()
+    var longitude = "2"
+    var latitude = ""
+        
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        viewController = self
+        viewController.container.isHidden = true
+        
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled(){
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+        
+        button.center = self.view.center
+        
+    }
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
+        guard let locationValue : CLLocationCoordinate2D = manager.location?.coordinate else{return}
+        
+        latitude = String(locationValue.latitude)
+        longitude = String(locationValue.longitude)
+        print(latitude + " " + longitude)
+    }
+    
+    
+    @IBAction func getRestaurantInformation(button: UIButton) {
+   
+        load()
+        
+        rData.getLocation (latitude: self.latitude, longitude: self.longitude){
             zone,location  in
         
             rData.getCuisine {
@@ -24,19 +58,25 @@ protocol VCDelegate {
         
                 rData.getCount(iD:cuisineId,cuisineZ:zone,locale:location){
                     start in
-        
+                    
                     rData.getRestaurants(iD:cuisineId,cuisineZ:zone,locale:location,startPoint:start){
-                        locationVal,restaurantVal,menuVal,linkVal in
-                        //print("\(restaurantVal)\n\(locationVal)\n\(menuVal)\n\(linkVal)")
+                            locationVal,restaurantVal,menuVal,linkVal in
+                            print("\(restaurantVal)\n\(locationVal)\n\(menuVal)\n\(linkVal)")
         
                         DispatchQueue.main.async {
         
                             for child in self.children {
                                 if let child = child as? ContainerView {
-                                    child.passData(string1: restaurantVal,string2:locationVal)
+                                    child.passData(string1: restaurantVal,string2:locationVal,string3:linkVal,string4:menuVal)
                                 }
                             }
-        
+                            
+                            self.moveButton(button: button)
+                            
+                            UIView.transition(with: self.container, duration: 1.0, options: .transitionCrossDissolve, animations: {}, completion: nil)
+                            viewController.container.isHidden = false
+                            
+                            self.stop()
                             
                         }
                     }
@@ -46,27 +86,37 @@ protocol VCDelegate {
             }
         
         }
-
-        
-        
-        
         
     }
-        
-        override func viewDidLoad() {
-            
-            
-            super.viewDidLoad()
-            
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is ContainerView {
+            //destination.passData(string1: "",string2: "",string3: "",string4: "")
         }
-        
-        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-            if let destination = segue.destination as? ContainerView {
-                destination.passData(string1: "",string2: "")
-            }
-            
-        }
+    }
+    
+}
+
+extension ViewController{
+
+    func load() {
+        activityIndicator.center = container.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = UIActivityIndicatorView.Style.gray
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+    }
+    
+    func stop(){
+        self.activityIndicator.stopAnimating()
+    }
+    
+    func moveButton(button: UIButton ){
+        let buttonHeight = button.frame.height
+        let viewHeight = button.superview!.bounds.height
+        UIView.transition(with: button, duration: 1.0, options: .curveLinear, animations: {}, completion: nil)
+        button.center.y = viewHeight/4 + buttonHeight * 3
+    }
     
 }
 
@@ -82,29 +132,5 @@ protocol VCDelegate {
 
 
 
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if(segue.identifier == "segue"){
-//            self.delegate = segue.destination as! ContainerView
-//        }
-//    }
-
-//    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        // Get the new view controller using segue.destinationViewController.
-//        // Pass the selected object to the new view controller.
-//        if(segue.identifier == "segue"){
-//            self.delegate = segue.destination as! ContainerView
-//        }
-//    }
-    
-    
-    
-        
-        
-    
-    
-
-        
-//    }
 
 

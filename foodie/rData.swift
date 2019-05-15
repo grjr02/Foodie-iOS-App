@@ -33,12 +33,14 @@ struct GeoInfo:Decodable{
 }
 
 import UIKit
+import CoreLocation
+
 
 class rData: NSObject {
     
-    class func getLocation(completionHandler: @escaping (_ zone: String,_ location: Int) -> ()) {
-        
-        let urlName = "https://developers.zomato.com/api/v2.1/geocode?lat=40.641472&lon=-73.917374"
+    class func getLocation(latitude:String, longitude:String,completionHandler: @escaping (_ zone: String,_ location: Int) -> ()) {
+
+        let urlName = "https://developers.zomato.com/api/v2.1/geocode?lat=\(latitude)&lon=\(longitude)"
         let zomatoKey = "1879a59717412359f030b0bb600a390a"
 
         let url = URL(string: urlName)
@@ -208,7 +210,9 @@ class rData: NSObject {
                 let locationVal = arrayOfLocations[randomInt]
                 let restaurantVal = arrayOfRestaurants[randomInt]
                 let menuVal = arrayOfMenus[randomInt]
+                //guard let menuURL = URL(string: menuVal) else {return}
                 let linkVal = arrayOfLinks[randomInt]
+                //guard let linkURL = URL(string: linkVal) else{return}
                 
                 completionHandler(locationVal,restaurantVal,menuVal,linkVal)
    

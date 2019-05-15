@@ -12,9 +12,11 @@
 		F25874402271896F00EB6B8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F258743E2271896F00EB6B8A /* Main.storyboard */; };
 		F25874452271897100EB6B8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F25874442271897100EB6B8A /* Assets.xcassets */; };
 		F25874482271897100EB6B8A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F25874462271897100EB6B8A /* LaunchScreen.storyboard */; };
+		F2853BE0228009430033C11B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2853BDF228009430033C11B /* CoreLocation.framework */; };
 		F2CA823C22744D0800880CBE /* foodie.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F2CA823A22744D0800880CBE /* foodie.xcdatamodeld */; };
 		F2CA8242227DE88500880CBE /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CA8241227DE88500880CBE /* ContainerView.swift */; };
 		F2CA8244227DEBBF00880CBE /* rData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CA8243227DEBBF00880CBE /* rData.swift */; };
+		F2D9D336228112DA0004C4F8 /* MapViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D9D335228112DA0004C4F8 /* MapViewViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,9 +27,11 @@
 		F25874442271897100EB6B8A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F25874472271897100EB6B8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F25874492271897100EB6B8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F2853BDF228009430033C11B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		F2CA823B22744D0800880CBE /* yelp1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = yelp1.xcdatamodel; sourceTree = "<group>"; };
 		F2CA8241227DE88500880CBE /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
 		F2CA8243227DEBBF00880CBE /* rData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rData.swift; sourceTree = "<group>"; };
+		F2D9D335228112DA0004C4F8 /* MapViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2853BE0228009430033C11B /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +51,7 @@
 			children = (
 				F25874392271896F00EB6B8A /* foodie */,
 				F25874382271896F00EB6B8A /* Products */,
+				F2853BDE228009430033C11B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -63,6 +69,7 @@
 				F258743A2271896F00EB6B8A /* AppDelegate.swift */,
 				F258743C2271896F00EB6B8A /* ViewController.swift */,
 				F2CA8241227DE88500880CBE /* ContainerView.swift */,
+				F2D9D335228112DA0004C4F8 /* MapViewViewController.swift */,
 				F2CA8243227DEBBF00880CBE /* rData.swift */,
 				F258743E2271896F00EB6B8A /* Main.storyboard */,
 				F25874442271897100EB6B8A /* Assets.xcassets */,
@@ -71,6 +78,14 @@
 				F2CA823A22744D0800880CBE /* foodie.xcdatamodeld */,
 			);
 			path = foodie;
+			sourceTree = "<group>";
+		};
+		F2853BDE228009430033C11B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F2853BDF228009430033C11B /* CoreLocation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,6 +159,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2D9D336228112DA0004C4F8 /* MapViewViewController.swift in Sources */,
 				F2CA8242227DE88500880CBE /* ContainerView.swift in Sources */,
 				F258743D2271896F00EB6B8A /* ViewController.swift in Sources */,
 				F258743B2271896F00EB6B8A /* AppDelegate.swift in Sources */,
