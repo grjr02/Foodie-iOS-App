@@ -3,7 +3,7 @@ import CoreLocation
 
 
 protocol VCDelegate {
-    func passData(string1:String,string2:String,string3:String,string4:String)
+    func passData(restaurantName:String,address:String,link:String,menu:String)
 }
 
 var viewController = ViewController()
@@ -18,7 +18,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
     
     var delegate : VCDelegate?
     let locationManager = CLLocationManager()
-    var longitude = "2"
+    var longitude = ""
     var latitude = ""
         
     override func viewDidLoad() {
@@ -37,6 +37,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
         button.center = self.view.center
         
     }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
         guard let locationValue : CLLocationCoordinate2D = manager.location?.coordinate else{return}
         
@@ -67,13 +68,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
         
                             for child in self.children {
                                 if let child = child as? ContainerView {
-                                    child.passData(string1: restaurantVal,string2:locationVal,string3:linkVal,string4:menuVal)
+                                    child.passData(restaurantName: restaurantVal,address:locationVal,link:linkVal,menu:menuVal)
                                 }
                             }
                             
                             self.moveButton(button: button)
                             
                             UIView.transition(with: self.container, duration: 1.0, options: .transitionCrossDissolve, animations: {}, completion: nil)
+                            
                             viewController.container.isHidden = false
                             
                             self.stop()
@@ -91,7 +93,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is ContainerView {
-            //destination.passData(string1: "",string2: "",string3: "",string4: "")
+        //destination.passData(restaurantName: "",address: "",link: "",menu: "")
         }
     }
     
